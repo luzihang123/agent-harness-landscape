@@ -8,7 +8,7 @@ Market research on agent harnesses and organizational productivity in software d
 
 研究从 GitHub 项目和官方文档出发，逐步补充用户场景、产品对比、接入成本与实际使用证据，为组织选型和开源项目方向探索提供依据。
 
-当前收录 **30 个项目**，按主功能分为 **4 类**。初始整理与本轮仓库状态核对日期：**2026-10-08**。
+当前收录 **60 个项目**，按主功能分为 **4 类**。初始整理与本轮仓库状态核对日期：**2026-10-08**。
 
 ## 仓库目的
 
@@ -20,7 +20,13 @@ Market research on agent harnesses and organizational productivity in software d
 4. **采用需要什么？** 接入既有工具链、维护流程和治理边界需要多少投入？
 5. **机会在哪里？** 哪些高频问题仍缺少易用、可接入、可验证的方案？
 
-完整研究方法、访谈提纲和证据记录要求见 [研究计划](docs/RESEARCH_PLAN.md)。
+## 阅读导航
+
+- [项目总览](#项目总览)：60 个项目，按“解决什么问题 → 项目名称 → GitHub”查看。
+- [扩展项目档案](docs/EXTENDED_LANDSCAPE.md)：新增 30 个项目的机制、场景、潜在收益与待验证项。
+- [跨项目比较](docs/COMPARISON.md)：ZaoFu 等长任务方案的区别，以及交接、验证、观测工具如何配合。
+- [研究计划](docs/RESEARCH_PLAN.md)：调研步骤、用户访谈、效率指标和证据口径。
+- [来源记录](docs/SOURCES.md)：本轮阅读的官方文件、核对日期和文件指纹。
 
 ## 组织提效研究框架
 
@@ -47,10 +53,10 @@ Market research on agent harnesses and organizational productivity in software d
 
 | 类别 | 关注的问题 | 数量 |
 | --- | --- | ---: |
-| 编码智能体与执行内核 | 如何让智能体读取、修改和运行代码 | 7 |
-| 长周期交付、任务连续性与多智能体编排 | 如何让工作跨会话持续推进，并协调多个执行者 | 11 |
-| 持久执行与隔离环境基础设施 | 如何保存运行状态、恢复工作及提供隔离环境 | 4 |
-| 开发流程、验证、评测与观测 | 如何检查过程与结果，并分析可靠性 | 8 |
+| 编码智能体与执行内核 | 如何让智能体读取、修改和运行代码 | 8 |
+| 长周期交付、任务连续性与多智能体编排 | 如何让工作跨会话持续推进，并协调多个执行者 | 23 |
+| 持久执行、隔离环境与训练配套 | 如何保存状态、隔离运行及支持智能体训练 | 5 |
+| 开发流程、验证、评测与观测 | 如何检查过程与结果，并分析可靠性 | 24 |
 
 ## 1. 编码智能体与执行内核
 
@@ -65,6 +71,7 @@ Market research on agent harnesses and organizational productivity in software d
 | 需要让模型自主定位软件问题、修改代码并产出补丁。 | SWE-agent | [SWE-agent/SWE-agent](https://github.com/SWE-agent/SWE-agent) | 研究型编码智能体；主要开发已转向 mini-swe-agent |
 | 需要容易理解、改造和评测的最小编码智能体，减少运行框架复杂度。 | mini-SWE-agent | [SWE-agent/mini-swe-agent](https://github.com/SWE-agent/mini-swe-agent) | 最小编码智能体 / 研究基线 |
 | 需要可组合的软件智能体组件，构建自己的工具、会话和开发体验。 | OpenHands Software Agent SDK | [OpenHands/software-agent-sdk](https://github.com/OpenHands/software-agent-sdk) | SDK / 智能体执行组件 |
+| 构建工具型智能体时，会话、工具执行、恢复、审批和评测需要重复实现。 | Harness（lenileiro） | [lenileiro/harness](https://github.com/lenileiro/harness) | 通用运行框架与评测组件；广泛能力应逐模块验证。 |
 
 ## 2. 长周期交付、任务连续性与多智能体编排
 
@@ -83,10 +90,22 @@ Market research on agent harnesses and organizational productivity in software d
 | OpenHands 运行需要按计划或 webhook 触发，并管理调度、运行历史与沙箱生命周期。 | OpenHands Automation | [OpenHands/automation](https://github.com/OpenHands/automation) | 自动化调度服务 |
 | 多步骤智能体需要现成的规划、子智能体、文件系统、持久记忆和上下文管理能力。 | Deep Agents | [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) | 通用长任务 harness |
 | 长时间运行的智能体可能重复消耗上下文、空转或丢失有效进度，需要外部监督、状态交接与停止机制。 | LongHorizonOS | [Yang-Jiashu/LongHorizonOS](https://github.com/Yang-Jiashu/LongHorizonOS) | 长任务监督与状态层；实验项目 |
+| 长任务已有进展却过早结束，需要反复发现未完成项并调整执行计划。 | Zenith | [Intelligent-Internet/zenith](https://github.com/Intelligent-Internet/zenith) | 长任务 harness 与技术报告；报告效果限于其评测配置。 |
+| 桌面应用和终端任务跨多个上下文执行时，目标、验证状态与进度容易丢失。 | LongHorizon-Harness | [AMAP-ML/LongHorizon-Harness](https://github.com/AMAP-ML/LongHorizon-Harness) | 长任务及 computer-use harness；支持范围需要逐后端核对。 |
+| 多日软件开发需要持续发现缺口、开发和测试，同时保留已验证功能。 | Harness-of-Harness | [Flesymeb/HarnessOfHarness](https://github.com/Flesymeb/HarnessOfHarness) | 研究框架与公开项目演示；另有 HoH-lite。 |
+| 任务、尝试、决策和验收证据分散，换智能体后难以恢复可信工程状态。 | Cortex | [EcuaByte-lat/Cortex](https://github.com/EcuaByte-lat/Cortex) | 任务可靠性与交接层；各客户端集成能力分别记录。 |
+| Claude Code 或 Cursor 新会话需要重新解释工作目标、已完成项与后续步骤。 | handoff | [rosehgal/handoff](https://github.com/rosehgal/handoff) | Go CLI / hooks；README 的主要自动集成对象为 Claude Code 与 Cursor。 |
+| 从粗略需求到 Issue、PR 和交付缺少统一流程，跨编码工具切换容易丢失状态。 | Coding Agent Toolkit | [stefan-jansen/coding-agent-toolkit](https://github.com/stefan-jansen/coding-agent-toolkit) | 技能 / 提示词 / 工作流工具包；部分步骤的客户端支持不同。 |
+| 模型切换、上下文耗尽或运行限制后，下一执行者需要重新发现目标与验证进度。 | Continuity Handoff | [ciumbar/continuity-handoff](https://github.com/ciumbar/continuity-handoff) | 交接协议与技能；模型切换本身由使用者或运行系统安排。 |
+| 多个 CLI 智能体相互委派工作时，任务主题和会话连续性容易混淆。 | Agent Handoff | [nick-vi/agent-handoff](https://github.com/nick-vi/agent-handoff) | CLI / 技能 / 会话注册工具；依赖所选智能体 CLI。 |
+| 并行编码智能体需要统一管理生命周期、权限、复核、恢复与运行证据。 | Harness（majiayu000） | [majiayu000/harness](https://github.com/majiayu000/harness) | Rust 控制平面；fleet 功能另有数据库和认证依赖。 |
+| 设计、编码、审查和测试职责混在同一智能体中，配置与运行记录难以维护。 | Harness（Tlahey） | [Tlahey/harness](https://github.com/Tlahey/harness) | 基于 OpenCode 的项目模板与 CLI。 |
+| 长任务容易偏离规格、跳过测试，项目知识和执行计划也会过时。 | Tenet | [JeiKeiLim/tenet](https://github.com/JeiKeiLim/tenet) | 长任务编排 harness；无限重试的默认说明需要在采用时核对。 |
+| 同一会话内的轻任务与跨会话或需审计的任务，所需状态和验收控制不同。 | Agent Harness（SUNRNEHUI） | [SUNRNEHUI/agent-harness](https://github.com/SUNRNEHUI/agent-harness) | 运行环境中立的技能与控制脚本。 |
 
-## 3. 持久执行与隔离环境基础设施
+## 3. 持久执行、隔离环境与训练配套
 
-解决“执行状态如何保存、故障后怎样继续，以及代码在哪里运行”。
+解决“执行状态如何保存、故障后怎样继续，以及代码在哪里运行”。另收录训练配套：Agent Lightning 支持智能体训练研发，采用条件和收益口径与交付运行基础设施分别记录。
 
 | 解决什么问题 | 项目名称 | GitHub 仓库 | 项目形态 / 备注 |
 | --- | --- | --- | --- |
@@ -94,6 +113,7 @@ Market research on agent harnesses and organizational productivity in software d
 | 智能体工作流需要持久化运行，让调用失败可重试、人工审批后可继续，并避免重放时重复模型调用。 | Temporal × OpenAI Agents | [temporalio/samples-typescript](https://github.com/temporalio/samples-typescript) | 集成示例；位于 openai-agents/ |
 | AI 生成的代码需要在可创建、控制和销毁的隔离云沙箱中运行。 | E2B | [e2b-dev/E2B](https://github.com/e2b-dev/E2B) | 代码执行沙箱基础设施 |
 | 智能体需要隔离的开发环境、环境生命周期管理和持久化快照。 | Daytona | [daytonaio/daytona](https://github.com/daytonaio/daytona) | 沙箱基础设施；该公开仓库已归档 |
+| 训练智能体时，需要保留真实 harness 的工具、上下文、控制流和运行环境。 | Agent Lightning | [microsoft/agent-lightning](https://github.com/microsoft/agent-lightning) | 训练配套基础设施；收益属于训练研发环节。 |
 
 ## 4. 开发流程、验证、评测与观测
 
@@ -109,14 +129,34 @@ Market research on agent harnesses and organizational productivity in software d
 | 需要衡量智能体能否根据高层软件需求，持续演进复杂代码库。 | SWE-EVO | [SWE-EVO/SWE-EVO](https://github.com/SWE-EVO/SWE-EVO) | 软件演进评测集 |
 | 智能体调用过程难以追踪，需要关联轨迹、成本、反馈、提示词和评估结果。 | Langfuse | [langfuse/langfuse](https://github.com/langfuse/langfuse) | LLM / 智能体观测与评估 |
 | 需要查看智能体调用轨迹，分析失败并运行评估，支持持续改进。 | Phoenix | [Arize-ai/phoenix](https://github.com/Arize-ai/phoenix) | AI 观测与评估 |
+| 智能体报告完成却缺少对应的测试、验收与执行证据。 | Agent Execution Harness | [lordaeternus/agent-execution-harness](https://github.com/lordaeternus/agent-execution-harness) | 本地执行流程与证据工具；严格模式行为需单独核对。 |
+| 工作智能体的完成声明需要由独立、用户控制的检查决定是否接受。 | Agentic Harness | [moortekweb-art/agentic-harness](https://github.com/moortekweb-art/agentic-harness) | CLI / 本地 GUI / 完成门禁；受控演示与真实效果分别判断。 |
+| 相同智能体错误反复发生，仓库规范与失败经验难以转成持久约束。 | Harness Starter Kit | [harnessworks/harness-starter-kit](https://github.com/harnessworks/harness-starter-kit) | 入门工具包与方法；效果需任务记录验证。 |
+| 个人或小团队的目标、冲刺计划、编码、验证与提交缺少持续衔接。 | Agent Harness（markhazlett） | [markhazlett/agent-harness](https://github.com/markhazlett/agent-harness) | 开发工作流工具包；适用习惯需要核对。 |
+| 项目记忆、长任务执行、协作和验收要求分散在临时提示与会话中。 | Harness Craft | [YuxiaoWang-520/harness-craft](https://github.com/YuxiaoWang-520/harness-craft) | 技能 / 规则库；执行保证需结合具体 runtime 验证。 |
+| 失败日志难以阅读，提示词或模型变化后难定位行为差异。 | Agent Replay | [clay-good/agent-replay](https://github.com/clay-good/agent-replay) | 轨迹调试 CLI；轨迹回看与真实环境重执行的条件应分别验证。 |
+| 多种编码智能体日志格式不同，难统一定位循环、工具失败、token 增长和缺少验证。 | Traces | [tangle-network/traces](https://github.com/tangle-network/traces) | CLI / SDK；标准轨迹契约与原生日志适配能力分别记录。 |
+| 非确定性智能体的行为难在 CI 中做可重复的测试和回归检测。 | Agent Harness（nderman） | [nderman/agent-harness](https://github.com/nderman/agent-harness) | 测试与评估示范工程；与软件交付 harness 属于配套研究。 |
+| 多个 harness 的效果容易与模型、API 条件和任务差异混在一起。 | Agent Harness Eval | [hellock/agent-harness-eval](https://github.com/hellock/agent-harness-eval) | 多 harness 评测框架；支持版本以其兼容表为准。 |
+| 实际可安装编码 CLI 缺少可控条件下的对照研究。 | Harness Bench（zenixos） | [zenixos/harness-bench](https://github.com/zenixos/harness-bench) | README 标注 Building；已有 scaffold，评分运行仍待完成。 |
+| 相同本地模型搭配不同编码 harness 时，效果与稳定性差异难系统测量。 | HarnessBench（ya5h-P） | [ya5h-P/harnessbench](https://github.com/ya5h-P/harnessbench) | 偏本地模型场景的编码 harness 评测集与运行脚本。 |
+| 添加 MCP、技能、插件或 LSP 后，难判断哪个组件实际改善任务效果。 | Harness Benchmark（Heretek-AI） | [Heretek-AI/harness-benchmark](https://github.com/Heretek-AI/harness-benchmark) | 基准与自动化实验框架；组件集成应逐项核对。 |
+| 单点改动题难揭示智能体在有依赖的长任务中如何持续推进与保持已完成部分。 | LoopsBench | [microsoft/Loopsbench](https://github.com/microsoft/Loopsbench) | 长任务 benchmark 与执行 harness。 |
+| 智能体在工具超时、错误响应、上下文损坏或预算耗尽后可能无法正确恢复。 | BalaganAgent | [arielshad/balagan-agent](https://github.com/arielshad/balagan-agent) | 通用智能体故障测试框架；组织效率收益待验证。 |
+| 工具边界发生超时、格式错误、限流或成本失控时，智能体行为缺少系统检查。 | Agentfuzz | [SubhashPavan/agentfuzz](https://github.com/SubhashPavan/agentfuzz) | 通用故障注入工具；示例数值不作为本调研的实测数据。 |
+| DeepSeek Harness 的插件需要验证重试、取消、拒绝和不可信结果处理路径。 | DSH Tool Chaos | [cyanseek/dsh-tool-chaos](https://github.com/cyanseek/dsh-tool-chaos) | README 标注未发布 development candidate。 |
 
 ## 状态与来源说明
 
-能力摘要依据各项目的官方 README、仓库说明和文档整理；表格中的 GitHub 链接是对应项目的来源入口。本轮已核对全部 30 个仓库的可访问性与归档状态，尚未对这些项目进行统一安装或性能评测。
+能力摘要依据各项目的官方 README、仓库说明和文档整理；表格中的 GitHub 链接是对应项目的来源入口。截至本轮已核对清单中 60 个仓库的可访问性与归档状态，尚未对这些项目进行统一安装或性能评测。
 
 - **ZaoFu** 的 README 标注为 Developer Preview。本清单将其归入长周期交付编排，因为它以任务契约、角色协作、验证门禁和恢复路径管理交付过程。
 - **SWE-agent** 的 README 说明主要开发投入已转向 mini-swe-agent，并建议新使用者优先关注后者。
 - **Daytona** 的公开仓库已归档。其 README 说明核心开发自 2026 年 6 月迁入私有代码库；这里保留公开版本作为架构研究对象。
+- **Zenith / Harness-of-Harness / LoopsBench** 的研究或演示结果需绑定各自任务与配置，不能直接当作团队收益。
+- **zenixos/harness-bench** 的 README 标注 Building，评分运行仍待完成。
+- **DSH Tool Chaos** 的 README 标注未发布开发候选版本。
+- **Agent Lightning** 面向训练研发；**nderman/agent-harness** 的示例面向支付支持智能体，均作为配套研究收录。
 - **Temporal × OpenAI Agents** 是样例仓库中的集成示例：[openai-agents/README.md](https://github.com/temporalio/samples-typescript/blob/main/openai-agents/README.md)。
 
 研究项目、SDK、示例和评测集的职责不同，不能仅凭同一张清单推断它们具有相同的交付能力。后续能力对比应绑定具体版本、配置、任务和验收方法。
